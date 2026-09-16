@@ -1,34 +1,24 @@
 # Armario virtual 👕
 
-App de armario virtual: catalogá tu ropa con fotos y (más adelante) recibí recomendaciones de outfit según el clima. Este es el punto de partida — fase 1 del plan: subir fotos y catalogar prendas.
+App de armario virtual con IA — catalogá tu ropa, arma outfits según el clima, y encontrá lo que te falta. Tema navy oscuro ("Fit Engine"), siguiendo el diseño en `Armario Virtual.dc.html`.
 
 ## Cómo correrlo
 
-1. Instalá las dependencias:
+1. `npm install` (hay dos librerías nuevas: `@expo/vector-icons` y `expo-linear-gradient`).
+2. `npx expo start`.
+3. Escaneá el QR con la app **Expo Go** en tu celular.
 
-   ```bash
-   npm install
-   ```
+## Navegación (calca el diseño)
 
-2. Iniciá el servidor de desarrollo:
+- **Armario** (`(tabs)/index.tsx`) — tus prendas en cuadrícula, con filtros por categoría (Tops, Pantalones, Calzado, Abrigos). El botón `+` del header abre el modal de agregar prenda.
+- **Fits IA** (`(tabs)/fits.tsx`) — placeholder. Acá va el motor que cruza clima + armario + ocasión para armar un outfit (pantalla 02 del diseño).
+- **Tienda** (`(tabs)/tienda.tsx`) — placeholder. Acá va la búsqueda de la pieza que falta en Amazon/Temu/Shein con redirección (pantalla 03).
+- **Perfil** (`(tabs)/perfil.tsx`) — placeholder. Acá van las medidas y el maniquí 3D (pantallas 05 y 06 — proyecto aparte, requiere motor 3D).
+- **Agregar prenda** (`add.tsx`) — modal, ya no es una pestaña. Guarda en el dispositivo con `AsyncStorage` (sin backend todavía).
 
-   ```bash
-   npx expo start
-   ```
+## Qué falta por fase
 
-3. Instalá la app **Expo Go** en tu celular (App Store o Play Store) y escaneá el código QR que aparece en la terminal. La app se abre directo en tu teléfono, sin necesidad de Xcode ni Android Studio.
-
-   - También podés presionar `w` en la terminal para probarlo en el navegador (algunas funciones nativas, como elegir foto, se comportan distinto en web).
-
-## Qué hay hecho hasta ahora
-
-- **Pestaña "Armario"** (`src/app/index.tsx`): muestra tus prendas guardadas en una cuadrícula. Si no hay ninguna, te invita a agregar la primera.
-- **Pestaña "Agregar"** (`src/app/add.tsx`): elegí una foto de la galería, escribí tipo y color, y elegí la temporada.
-- **`src/context/wardrobe-context.tsx`**: guarda las prendas en el propio dispositivo (`AsyncStorage`), así que ya funciona sin backend. Cuando quieras pasar a Firebase/Supabase para sincronizar entre dispositivos, este es el archivo que se reemplaza.
-
-## Próximos pasos (según el roadmap)
-
-1. Conectar una API de clima y armar la lógica de recomendación de outfit.
-2. Agregar el estado limpio/sucio a cada prenda y recordatorios de lavado.
-3. Sumar reconocimiento automático de fotos con un modelo de visión (para no tener que escribir tipo/color a mano).
-4. Búsqueda y enlaces de compra (fase con Amazon).
+1. **Fits IA**: lógica de recomendación con un modelo de IA (clima + armario + ocasión → outfit + qué falta).
+2. **Captura con IA**: reemplazar el formulario manual de "Agregar" por cámara + modelo de visión que clasifique la prenda sola.
+3. **Tienda**: botón que busca la pieza faltante y redirige a Amazon/Temu/Shein (sin compra automatizada — ninguna de las tres da esa API).
+4. **Maniquí 3D / prueba virtual**: fase aparte, necesita un motor 3D real (Three.js) — no es un ajuste de pantalla.
